@@ -8,7 +8,7 @@ import java.util.Base64;
 
 public class DeserialisableTest {
 
-    @Test
+//    @Test
     public void helloSecurityOfficer() throws Exception {
         Evil evil = new Evil();
         evil.name = "aaa";
@@ -18,7 +18,7 @@ public class DeserialisableTest {
     }
 
 
-    @Test
+//    @Test
     public void helloSecurityOfficer2() throws Exception {
         Evil evil = new Evil();
         evil.name = "aaa";

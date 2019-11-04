@@ -14,4 +14,10 @@ public class CheckController {
                         @RequestParam("keyId") Integer keyId) {
         return "Hello Gradle!";
     }
+
+    @GetMapping("/validate/prime-number")
+    public String isNumberPrime(@RequestParam("number") String number) {
+        return Integer.parseInt(number) % 2 == 0 ? "Even" : "Odd";
+    }
+
 }
