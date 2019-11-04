@@ -6,10 +6,11 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Comparator;
 
+
 public class FixmeJokerTest {
 
     @Test
-    public void _1_whoisTheOutsider() {
+    public void test1_whoisTheOutsider() {
         class RaceHorse {
             private final int speed;
             private final int age;
@@ -34,14 +35,14 @@ public class FixmeJokerTest {
     }
 
     @Test
-    public void _2_howAboutALittleBitOfLeftBitShifting() {
+    public void test2_howAboutALittleBitOfLeftBitShifting() {
         int leftShift = 0x80000000;
         leftShift = leftShift <<1;
         Assert.assertEquals(0x00000000, leftShift);
     }
 
     @Test
-    public void _3_whatStringIsConstructed() {
+    public void test3_whatStringIsConstructed() {
         class A {
             String someString = "pi";
 
@@ -78,7 +79,36 @@ public class FixmeJokerTest {
     }
 
     @Test
-    public void _4_howDiamonProblemIsSolvedInJava() {
+    public void test4_howDiamonProblemIsSolvedInJava() {
         Assert.assertEquals("moo-oo", new Minotaur().sound());
+    }
+
+
+    @Test
+    public void test5_methodPreferences() {
+        class WiseMan {
+            String whoAmI(int i) {
+                return "int";
+            }
+            String whoAmI(Integer i) {
+                return "Integer";
+            }
+            String whoAmI(Object i) {
+                return "Object";
+            }
+        }
+
+        WiseMan wiseMan = new WiseMan();
+
+        Assert.assertEquals("int", wiseMan.whoAmI(1));
+        Assert.assertEquals("Integer", wiseMan.whoAmI(Integer.valueOf(1)));
+        long l = 1;
+        Assert.assertEquals("Object", wiseMan.whoAmI(l));
+        Long L = 1L;
+        Assert.assertEquals("Object", wiseMan.whoAmI(L));
+        byte b = 1;
+        Assert.assertEquals("int", wiseMan.whoAmI(b));
+        Double d = 1D;
+        Assert.assertEquals("Object", wiseMan.whoAmI(d));
     }
 }
