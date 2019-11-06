@@ -2,14 +2,10 @@ package maratische.kotlin.sdktest1;
 
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import maratische.kotlin.sdktest1.App;
-import maratische.kotlin.sdktest1.CheckController;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -17,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public abstract class BaseClass {
 
     @Autowired
-    CheckController personRestController;
+    ServerCheckController personRestController;
 
 //    @MockBean
 //    PersonService personService;

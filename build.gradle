@@ -3,7 +3,10 @@ buildscript {
         springBootVersion = '2.1.6.RELEASE'
         verifierVersion = '2.1.1.RELEASE'
     }
-    repositories { mavenCentral() }
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
@@ -23,8 +26,8 @@ apply plugin: 'application'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-bootJar {
-    baseName = 'contract-rest-service'
+jar {
+    baseName = 'sdktest-server'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -54,8 +57,36 @@ application {
 }
 
 contracts {
+    contractsMode 'LOCAL'
     packageWithBaseClasses = 'maratische.kotlin.sdktest1'
     baseClassMappings {
-        baseClassMapping(".*hello.*", "maratische.kotlin.sdktest1.BaseClass")
+        baseClassMapping(".*validate.*", "maratische.kotlin.sdktest1.BaseClass")
     }
 }
+
+/*
+In this scenario we want to publish stubs to SCM whenever
+the `publish` task is executed
+*/
+publishStubsToScm {
+    // We want to modify the default set up of the plugin when publish stubs to scm is called
+    customize {
+        // We want to pick contracts from a Git repository
+        contractDependency {
+            stringNotation = "${project.group}:${project.name}:${project.version}"
+        }
+        /*
+        We reuse the contract dependency section to set up the path
+        to the folder that contains the contract definitions. In our case the
+        path will be /groupId/artifactId/version/contracts
+         */
+        contractRepository {
+            repositoryUrl = "git://https://github.com/maratische/SkdTestContracts.git"
+        }
+        // The mode can't be classpath
+        contractsMode = "REMOTE"
+    }
+}
+
+//publish.dependsOn("publishStubsToScm")
+//publishToMavenLocal.dependsOn("publishStubsToScm")

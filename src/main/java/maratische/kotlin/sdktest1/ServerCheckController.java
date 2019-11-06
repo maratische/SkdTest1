@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CheckController {
+public class ServerCheckController {
 
     @PostMapping("/check")
     public String check(@RequestParam("roomId") Integer roomId,
